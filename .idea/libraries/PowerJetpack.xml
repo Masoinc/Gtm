@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="PowerJetpack">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/PowerJetpack.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

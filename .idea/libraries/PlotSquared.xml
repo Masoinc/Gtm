@@ -1,0 +1,26 @@
+<component name="libraryTable">
+  <library name="PlotSquared">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/PlotSquared.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BossShopPro.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/BSP-ItemShops.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/CrackShot.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/CrackShotPlus.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/DeluxeTags.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/denizen-1.0.1-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/DivineItemsRPG.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-5.1.40-bin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ParticleHats.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/PlaceholderAPI.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spigot-1.10.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spigot-api-1.11.2-R0.1-SNAPSHOT-shaded.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/TreasureChest.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Vault.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/DeluxeTags.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/spigot-1.10.2.jar!/" />
+    </SOURCES>
+  </library>
+</component>

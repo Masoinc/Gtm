@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="gtm:jar">
+    <output-path>E:/Minecraft/GTA-感染者都市/plugins</output-path>
+    <root id="archive" name="gtm.jar">
+      <element id="module-output" name="Gtm" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="FrameProtect">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/FrameProtect.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,34 @@
+name: Gtm
+
+main: me.masonic.mc.Core
+
+version: 1.0
+
+commands:
+  gtmatm:
+    description: atm
+    usage: /gtmatm
+  gtmkit:
+    description: gtmkit
+    usage: /gtmkit
+  gtmrank:
+    description: gtmrank
+    usage: /gtmrank
+  gtmdr:
+    description: gtmdr
+    usage: /gtmdr
+  gtmcp:
+    description: gtmcp
+    usage: /gtmcp
+  gtmhouse:
+    description: gtmhouse
+    usage: /gtmhouse
+  gtmtaxi:
+    description: gtmtaxi
+    usage: /gtmtaxi
+  gtmsell:
+    description: gtmsell
+    usage: /gtmsell
+  gtmvip:
+    description: gtmvip
+    usage: /gtmvip
