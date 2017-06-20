@@ -82,6 +82,7 @@ public class GtmVip implements CommandExecutor {
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
+                            return true;
                         case "vip+":
                             name = "§aVIP+";
                             narrateCharged(p, name);
@@ -92,6 +93,7 @@ public class GtmVip implements CommandExecutor {
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
+                            return true;
                         case "svip":
                             name = "§3SVIP";
                             RunCmd.runOp(p, "pex user " + p.getName() + " group add svip");
@@ -101,6 +103,7 @@ public class GtmVip implements CommandExecutor {
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
+                            return true;
                         case "svip+":
                             name = "§5SVIP+";
                             narrateCharged(p, name);
@@ -111,6 +114,7 @@ public class GtmVip implements CommandExecutor {
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
+                            return true;
                         case "mvp":
                             name = "§cMVP";
                             narrateCharged(p, name);

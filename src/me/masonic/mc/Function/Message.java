@@ -18,4 +18,5 @@ public class Message implements Listener{
     private void onquit(PlayerQuitEvent e) {
         e.setQuitMessage("§8[§c-§8] §7"+e.getPlayer().getName());
     }
+
 }

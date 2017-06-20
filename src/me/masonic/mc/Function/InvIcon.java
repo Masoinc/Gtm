@@ -7,13 +7,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class InvIcon implements Listener {
@@ -21,6 +22,7 @@ public class InvIcon implements Listener {
     private static ItemStack stacker = new ItemStack(Material.IRON_SWORD, 1, (short) 65);
     private static ItemStack backpack = new ItemStack(Material.CHEST);
     private static ItemStack phone = new ItemStack(Material.WATCH);
+    private static List<String> ICONS = new ArrayList<>();
 
     static {
         ItemMeta bmeta = backpack.getItemMeta();
@@ -38,11 +40,29 @@ public class InvIcon implements Listener {
         ItemMeta pmeta = phone.getItemMeta();
         pmeta.setDisplayName("§7§l手机");
         phone.setItemMeta(pmeta);
+        ICONS = Arrays.asList("§3§l压缩弹夹","§2§l随身背包","§7§l手机");
     }
 
     @EventHandler
     public void onPlayerJoin(final PlayerJoinEvent event) {
         giveInvIcon(event.getPlayer());
+    }
+
+    @EventHandler
+    public void onPickUp(final PlayerPickupItemEvent e) {
+        if (e.getItem().getItemStack().hasItemMeta() && e.getItem().getItemStack().getItemMeta().hasDisplayName()) {
+            if (ICONS.contains(e.getItem().getItemStack().getItemMeta().getDisplayName())) {
+                e.setCancelled(true);
+            }
+        }
+    }
+    @EventHandler
+    public void onDrops(final PlayerDropItemEvent e) {
+        if (e.getItemDrop().getItemStack().hasItemMeta() && e.getItemDrop().getItemStack().getItemMeta().hasDisplayName()) {
+            if (ICONS.contains(e.getItemDrop().getItemStack().getItemMeta().getDisplayName())) {
+                e.setCancelled(true);
+            }
+        }
     }
 
     @EventHandler
