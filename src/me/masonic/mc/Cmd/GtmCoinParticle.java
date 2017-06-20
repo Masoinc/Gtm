@@ -123,7 +123,7 @@ public class GtmCoinParticle implements CommandExecutor {
         return 0;
 
     }
-
+     
 
     static void giveCoinParticle(Player p, int a) throws SQLException {
         if (getIfExist(p, "coinparticle")) {
