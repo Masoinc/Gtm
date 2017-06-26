@@ -3,6 +3,7 @@ package me.masonic.mc;
 import com.intellectualcrafters.plot.api.PlotAPI;
 import me.masonic.mc.Cmd.*;
 import me.masonic.mc.Function.*;
+import me.masonic.mc.Hook.HookGangPlus;
 import me.masonic.mc.Hook.HookPapi;
 import me.masonic.mc.Hook.HookPlotSquared;
 import me.masonic.mc.Listener.PlayerDeath;
@@ -55,6 +56,7 @@ public class Core extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerDeath(), this);
         getServer().getPluginManager().registerEvents(new EquipSpecialAccessory(), this);
         getServer().getPluginManager().registerEvents(new HookPlotSquared(), this);
+        getServer().getPluginManager().registerEvents(new HookGangPlus(), this);
         getServer().getPluginManager().registerEvents(new Taxi(this), this);
         getServer().getPluginManager().registerEvents(new Frame(this), this);
         getServer().getPluginManager().registerEvents(new Sell(this), this);

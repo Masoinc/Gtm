@@ -146,5 +146,6 @@
     <orderEntry type="library" name="ParticleAPI_v2.0.0" level="project" />
     <orderEntry type="library" name="PowerJetpack" level="project" />
     <orderEntry type="library" name="ElytraPlus" level="project" />
+    <orderEntry type="library" name="GangsPlus-2.1.10-SNAPSHOT" level="project" />
   </component>
 </module>

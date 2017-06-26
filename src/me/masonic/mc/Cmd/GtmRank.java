@@ -36,6 +36,7 @@ public class GtmRank implements CommandExecutor {
             Player p = (Player) sender;
             switch (args[0]) {
                 case "rogue":
+                    //gtm.rank.rogue
                     rank = "rogue";
                     rankname = "§2§l地头流氓";
                     setPrefix(p, rank);
@@ -43,13 +44,19 @@ public class GtmRank implements CommandExecutor {
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 case "criminal":
+                    //gtm.rank.criminal
                     rank = "criminal";
                     rankname = "§2§l不法分子";
                     setPrefix(p, rank);
                     addPermission(p, rank);
+                    //解锁帮派
+                    addPermission(p, "gangsplus.gang.*");
+                    addPermission(p, "gangsplus.fight.*");
+                    addPermission(p, "gangsplus.gangchat");
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 case "thug":
+                    //gtm.rank.thug
                     rank = "thug";
                     rankname = "§3§l亡命歹徒";
                     try {
@@ -62,6 +69,7 @@ public class GtmRank implements CommandExecutor {
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 case "gangster":
+                    //gtm.rank.gangster
                     rank = "gangster";
                     rankname = "§3§l黑帮势力";
                     setPrefix(p, rank);
@@ -70,6 +78,7 @@ public class GtmRank implements CommandExecutor {
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 case "smuggler":
+                    //gtm.rank.smuggler
                     rank = "smuggler";
                     rankname = "§6§l走私大亨";
                     try {
@@ -82,6 +91,7 @@ public class GtmRank implements CommandExecutor {
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 case "hunter":
+                    //gtm.rank.hunter
                     rank = "hunter";
                     rankname = "§6§l赏金猎手";
                     setPrefix(p, rank);
@@ -90,6 +100,7 @@ public class GtmRank implements CommandExecutor {
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 case "dealer":
+                    //gtm.rank.dealer
                     rank = "dealer";
                     rankname = "§6§l绝命毒贩";
                     setPrefix(p, rank);

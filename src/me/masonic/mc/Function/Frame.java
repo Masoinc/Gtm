@@ -9,6 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
+import java.sql.SQLException;
+
 /**
  * Mason Project 
  * 2017-6-10-0010
@@ -23,7 +25,7 @@ public class Frame implements Listener {
 
 
     @EventHandler
-    public void onPlayerInteract(final PlayerInteractEntityEvent e) {
+    public void onPlayerInteract(final PlayerInteractEntityEvent e) throws SQLException {
 
         if (e.getRightClicked().getType().equals(EntityType.ITEM_FRAME)) {
             Player p = e.getPlayer();
@@ -39,6 +41,14 @@ public class Frame implements Listener {
                     case "§6ATM":
                         e.setCancelled(true);
                         RunCmd.runOp(p, "bs gtmatm");
+                        return;
+                    case "§7购买房产§6H1":
+                        e.setCancelled(true);
+                        p.openInventory(House.getBuyHouseGUI(p,"GTM_house1"));
+                        return;
+                    case "§7购买房产§6H2":
+                        e.setCancelled(true);
+                        p.openInventory(House.getBuyHouseGUI(p,"GTM_house2"));
                         return;
                 }
             }
