@@ -147,5 +147,6 @@
     <orderEntry type="library" name="PowerJetpack" level="project" />
     <orderEntry type="library" name="ElytraPlus" level="project" />
     <orderEntry type="library" name="GangsPlus-2.1.10-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="BungeeCord" level="project" />
   </component>
 </module>

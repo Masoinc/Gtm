@@ -7,9 +7,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import java.sql.SQLException;
-
 /**
  * Created by Masonic on 2017/5/30.
  */
@@ -50,9 +50,6 @@ public class GtmRank implements CommandExecutor {
                     setPrefix(p, rank);
                     addPermission(p, rank);
                     //解锁帮派
-                    addPermission(p, "gangsplus.gang.*");
-                    addPermission(p, "gangsplus.fight.*");
-                    addPermission(p, "gangsplus.gangchat");
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 case "thug":
@@ -65,7 +62,6 @@ public class GtmRank implements CommandExecutor {
                     }
                     setPrefix(p, rank);
                     addPermission(p, rank);
-                    addGunPermission(p, "Deagle_a");
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 case "gangster":
@@ -74,7 +70,6 @@ public class GtmRank implements CommandExecutor {
                     rankname = "§3§l黑帮势力";
                     setPrefix(p, rank);
                     addPermission(p, rank);
-                    addGunPermission(p, "qbz95_a");
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 case "smuggler":
@@ -113,5 +108,16 @@ public class GtmRank implements CommandExecutor {
             }
         }
         return false;
+    }
+
+    void giveRankPermission(Player p,String rank) {
+        switch (rank) {
+            case "rogue":
+                PermissionsEx.getUser(p).addPermission("");
+            case "criminal":
+                PermissionsEx.getUser(p).addPermission("gangsplus.gang.*");
+                PermissionsEx.getUser(p).addPermission("gangsplus.fight.*");
+                PermissionsEx.getUser(p).addPermission("gangsplus.gangchat");
+        }
     }
 }
