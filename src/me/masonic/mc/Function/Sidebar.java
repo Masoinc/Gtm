@@ -44,7 +44,7 @@ public class Sidebar implements Listener {
                     "§8-> §6" + GangsPlusApi.getPlayersGang(p).getFormattedName(),
                     "§2",
                     "§6◇ §7犯罪等级:    ",
-                    "§8-> " + GtmRank.getRank$Name(p),
+                    "§8-> §8" + GtmRank.getRank$Name(p) + " §8]",
                     "§3",
                     "§8‡ GTM α v1.2"
             );
@@ -56,7 +56,7 @@ public class Sidebar implements Listener {
                     "§8-> §6" + Core.getEconomy().getBalance(p) + " §7黑币",
                     "§2",
                     "§6◇ §7犯罪等级:    ",
-                    "§8-> " + GtmRank.getRank$Name(p),
+                    "§8-> §8" + GtmRank.getRank$Name(p) + " §8]",
                     "§3",
                     "§8‡ GTM α v1.2"
             );
