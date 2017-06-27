@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Expansion-GangsPlus">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/Expansion-GangsPlus.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

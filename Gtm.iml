@@ -148,5 +148,6 @@
     <orderEntry type="library" name="ElytraPlus" level="project" />
     <orderEntry type="library" name="GangsPlus-2.1.10-SNAPSHOT" level="project" />
     <orderEntry type="library" name="BungeeCord" level="project" />
+    <orderEntry type="library" name="Expansion-GangsPlus" level="project" />
   </component>
 </module>
