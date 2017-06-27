@@ -42,6 +42,14 @@ public class InvIcon implements Listener {
         phone.setItemMeta(pmeta);
         ICONS = Arrays.asList("§3§l压缩弹夹","§2§l随身背包","§7§l手机");
     }
+    @EventHandler
+    void onSneak(PlayerToggleSneakEvent e) {
+        if (!e.isSneaking()) {
+            if (e.getPlayer().getLocation().getPitch() == -90) {
+                RunCmd.runOp(e.getPlayer(), "bs gtmphone");
+            }
+        }
+    }
 
     @EventHandler
     public void onPlayerJoin(final PlayerJoinEvent event) {
