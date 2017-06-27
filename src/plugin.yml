@@ -2,7 +2,7 @@ name: Gtm
 
 main: me.masonic.mc.Core
 
-version: 1.0
+version: 1.2
 
 commands:
   gtmatm:
@@ -32,3 +32,30 @@ commands:
   gtmvip:
     description: gtmvip
     usage: /gtmvip
+permissions:
+  gtm.rank.criminal:
+    description: Access to all Criminal rank permissions
+    children:
+      gangsplus.gang.*: true
+      gangsplus.fight.*: true
+      gangsplus.gangchat: true
+  gtm.rank.thug:
+    description: Access to all Thug rank permissions
+    children:
+      crackshot.use.Deagle_a: true
+  gtm.rank.gangster:
+    description: Access to all Gangster rank permissions
+    children:
+      crackshot.use.qbz95_a: true
+  gtm.rank.smuggler:
+    description: Access to all Smuggler rank permissions
+    children:
+      crackshot.use.rpg7_a: true
+  gtm.rank.hunter:
+    description: Access to all Hunter rank permissions
+    children:
+      crackshot.use.Barrett_a: true
+  gtm.rank.dealer:
+    description: Access to all Dealer rank permissions
+    children:
+      crackshot.use.g36_a: true
