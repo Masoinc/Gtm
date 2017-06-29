@@ -39,23 +39,29 @@ permissions:
       gangsplus.gang.*: true
       gangsplus.fight.*: true
       gangsplus.gangchat: true
+      deluxetags.tag.criminal: true
   gtm.rank.thug:
     description: Access to all Thug rank permissions
     children:
       crackshot.use.Deagle_a: true
+      deluxetags.tag.thug: true
   gtm.rank.gangster:
     description: Access to all Gangster rank permissions
     children:
       crackshot.use.qbz95_a: true
+      deluxetags.tag.gangster: true
   gtm.rank.smuggler:
     description: Access to all Smuggler rank permissions
     children:
       crackshot.use.rpg7_a: true
+      deluxetags.tag.smuggler: true
   gtm.rank.hunter:
     description: Access to all Hunter rank permissions
     children:
       crackshot.use.Barrett_a: true
+      deluxetags.tag.hunter: true
   gtm.rank.dealer:
     description: Access to all Dealer rank permissions
     children:
       crackshot.use.g36_a: true
+      deluxetags.tag.dealer: true

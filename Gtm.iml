@@ -149,5 +149,8 @@
     <orderEntry type="library" name="GangsPlus-2.1.10-SNAPSHOT" level="project" />
     <orderEntry type="library" name="BungeeCord" level="project" />
     <orderEntry type="library" name="Expansion-GangsPlus" level="project" />
+    <orderEntry type="library" name="ProtocolLib" level="project" />
+    <orderEntry type="library" name="LibsDisguises" level="project" />
+    <orderEntry type="library" name="LibsDisguises-9.1.2" level="project" />
   </component>
 </module>

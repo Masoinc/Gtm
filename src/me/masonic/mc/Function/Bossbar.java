@@ -41,6 +41,7 @@ public class Bossbar implements Listener {
     }
 
     private void sendBar(Player p) {
+        BossBarAPI.removeAllBars(p);
         TextComponent content = new TextComponent(contents.get(contentloop));
         contentloop++;
         if (contentloop >= 4) {
