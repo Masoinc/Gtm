@@ -150,13 +150,22 @@ public class Taxi implements Listener {
         RANDOM11("十字路口", new Location(Bukkit.getWorld("GTM_city"), -121, 74, 158, 90, 0)),
         RANDOM12("沙滩海岸", new Location(Bukkit.getWorld("GTM_city"), 46, 64, 402, -90, 0)),
         RANDOM13("吊装码头", new Location(Bukkit.getWorld("GTM_city"), -358, 73, 350, -90, 0)),
-        RANDOM14("露营地", new Location(Bukkit.getWorld("GTM_city"), 368, 73, -266, 180, 0));
+        RANDOM14("露营地", new Location(Bukkit.getWorld("GTM_city"), 368, 73, -266, 180, 0)),
+        HOUSE1("H1", new Location(Bukkit.getWorld("GTM_city"), -217, 73, 102, -90, 0)),
+        HOUSE2("H2", new Location(Bukkit.getWorld("GTM_city"), -132, 73, 129, -90, 0));
 
         public String getName() {
             return name;
         }
 
-
+        public static Warp getByName(String name) {
+            for(Warp w:Warp.values()) {
+                if (w.getName().equals(name)){
+                    return w;
+                }
+            }
+            return null;
+        }
         private String name;
 
         public Location getLocation() {

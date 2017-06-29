@@ -3,6 +3,7 @@ package me.masonic.mc.Function;
 import com.intellectualcrafters.plot.api.PlotAPI;
 import com.intellectualcrafters.plot.object.Plot;
 import com.intellectualcrafters.plot.object.PlotPlayer;
+import me.masonic.mc.Cmd.GtmVip;
 import me.masonic.mc.Core;
 import me.masonic.mc.Utility.GUI;
 import me.masonic.mc.Utility.RunCmd;
@@ -16,6 +17,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -41,11 +43,34 @@ public class House implements Listener {
     }
 
 
-    private static final String GTM_HOUSE_TITLE = "§8[ §6§l我的住宅 §8]";
-    private static final String GTM_BUYHOUSE_TITLE = "§8[ §6§l购买住宅 §8]";
+    private static final String GTM_HOUSE_TITLE = "§8[ §6我的住宅 §8]";
+    private static final String GTM_BUYHOUSE_TITLE = "§8[ §6购买住宅 §8]";
+    private static final String GTM_BUYHOUSELIST_TITLE = "§8[ §6出售中的住宅 §8]";
     private static final String GTM_BUYHOUSE_BUY = "§8[ §6购买 §8]";
     private static PlotAPI plotapi = new PlotAPI();
     //private static Map<String, String> worldmap = new HashMap<>();
+
+
+    public static void getBuyHouseListGUI(Player p) {
+        Inventory gui = GUI.getGtmStyleGUI(GTM_BUYHOUSELIST_TITLE);
+        for (Houses h : Houses.values()) {
+            ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+            SkullMeta itemmeta = (SkullMeta) item.getItemMeta();
+            itemmeta.setDisplayName("§7普通住宅§6" + h.getId());
+            List<String> lores = Arrays.asList(
+                    "",
+                    "§8-> §7箱子: §6" + Houses.getChestById(h.id) + " §7个",
+                    "§8-> §7价格: §3" + Houses.getPriceById(h.id) + " §7黑币",
+                    "",
+                    "§6◇ 点击传送");
+
+            itemmeta.setLore(lores);
+            itemmeta.setOwner("MoulaTime");
+            item.setItemMeta(itemmeta);
+            gui.setItem(gui.firstEmpty(), item);
+        }
+        p.openInventory(gui);
+    }
 
     public static Inventory getHouseGUI(Player p) {
 
@@ -128,40 +153,8 @@ public class House implements Listener {
             return;
         }
         Player p = (Player) e.getWhoClicked();
-        if (e.getInventory().getTitle().contains(GTM_HOUSE_TITLE)) {
-            if (e.getCurrentItem() != null &&
-                    e.getCurrentItem().hasItemMeta() &&
-                    e.getCurrentItem().getItemMeta().hasLore()) {
 
-                e.setCancelled(true);
-
-                String regEx = "(-)?\\d+;(-)?\\d+";
-                Pattern pattern = Pattern.compile(regEx);
-                Matcher matcher = pattern.matcher(e.getCurrentItem().getItemMeta().getLore().get(0).replaceAll("§\\d", ""));
-                while (matcher.find()) {
-                    regEx = "\\w\\d+";
-                    pattern = Pattern.compile(regEx);
-                    Matcher matcher2 = pattern.matcher(e.getCurrentItem().getItemMeta().getDisplayName().replaceAll("§\\d", ""));
-                    while (matcher2.find()) {
-                        // 出租车
-
-                        if (TAXI_COOLDOWN.get(p) != null && TAXI_COOLDOWN.get(p) > System.currentTimeMillis()) {
-                            p.sendMessage("§8[ §6GTM §8] §7出租车服务冷却尚未结束, 剩余冷却时间§a " + String.valueOf(((TAXI_COOLDOWN.get(p) - System.currentTimeMillis()) / 1000)) + " §7秒");
-                            return;
-                        }
-                        p.closeInventory();
-                        p.sendMessage("§8[ §6GTM §8] §7你叫了一辆出租车");
-
-                        TAXI_COOLDOWN.put(p, System.currentTimeMillis() + 30000);
-
-                        new TaxiHouseTask(p, 10, matcher2.group(), matcher.group()).runTaskTimer(this.plugin, 5, 20);
-
-                    }
-                }
-            }
-
-
-        } else if (e.getInventory().getTitle().contains(GTM_BUYHOUSE_TITLE)) {
+        if (e.getInventory().getTitle().contains(GTM_BUYHOUSE_TITLE)) {
             e.setCancelled(true);
             if (e.getCurrentItem() != null &&
                     e.getCurrentItem().hasItemMeta() &&
@@ -210,6 +203,56 @@ public class House implements Listener {
                         break;
                     }
                 }
+            }
+        } else {
+            switch (e.getInventory().getTitle()) {
+                case GTM_HOUSE_TITLE:
+                    e.setCancelled(true);
+                    if (e.getCurrentItem() != null &&
+                            e.getCurrentItem().hasItemMeta() &&
+                            e.getCurrentItem().getItemMeta().hasLore()) {
+
+
+                        String regEx = "(-)?\\d+;(-)?\\d+";
+                        Pattern pattern = Pattern.compile(regEx);
+                        Matcher matcher = pattern.matcher(e.getCurrentItem().getItemMeta().getLore().get(0).replaceAll("§\\d", ""));
+                        while (matcher.find()) {
+                            regEx = "\\w\\d+";
+                            pattern = Pattern.compile(regEx);
+                            Matcher matcher2 = pattern.matcher(e.getCurrentItem().getItemMeta().getDisplayName().replaceAll("§\\d", ""));
+                            while (matcher2.find()) {
+                                // 出租车
+
+                                if (TAXI_COOLDOWN.get(p) != null && TAXI_COOLDOWN.get(p) > System.currentTimeMillis()) {
+                                    p.sendMessage("§8[ §6GTM §8] §7出租车服务冷却尚未结束, 剩余冷却时间§a " + String.valueOf(((TAXI_COOLDOWN.get(p) - System.currentTimeMillis()) / 1000)) + " §7秒");
+                                    return;
+                                }
+                                p.closeInventory();
+                                p.sendMessage("§8[ §6GTM §8] §7你叫了一辆出租车");
+
+                                TAXI_COOLDOWN.put(p, System.currentTimeMillis() + 30000);
+
+                                new TaxiHouseTask(p, 10, matcher2.group(), matcher.group()).runTaskTimer(this.plugin, 5, 20);
+
+                            }
+                        }
+                    }
+                case GTM_BUYHOUSELIST_TITLE:
+                    e.setCancelled(true);
+                    if (e.getCurrentItem() != null &&
+                            e.getCurrentItem().hasItemMeta() &&
+                            e.getCurrentItem().getItemMeta().hasDisplayName()) {
+                        if (e.getCurrentItem().getItemMeta().getDisplayName().contains("普通住宅")) {
+
+                            String name = e.getCurrentItem().getItemMeta().getDisplayName().replace("§7普通住宅§6", "");
+                            if (Taxi.Warp.getByName(name) != null) {
+                                BukkitTask task = new TaxiWarpTask(p, GtmVip.getVipRank$Taxi(p), Taxi.Warp.getByName(name)).runTaskTimer(this.plugin, 5, 20);
+                                return;
+                            }
+
+
+                        }
+                    }
             }
         }
     }
@@ -265,7 +308,8 @@ public class House implements Listener {
     }
 
     public enum Houses {
-        H1("H1", "gtm_house1", 2, 8000), H2("H2", "gtm_house2", 6, 15000);
+        H1("H1", "gtm_house1", 2, 8000),
+        H2("H2", "gtm_house2", 6, 15000);
         private String id;
         private String world;
         private int chest;
@@ -307,6 +351,15 @@ public class House implements Listener {
         public static int getChest(String world) {
             for (Houses houses : Houses.values()) {
                 if (houses.getWorld().equalsIgnoreCase(world)) {
+                    return houses.chest;
+                }
+            }
+            return 0;
+        }
+
+        public static int getChestById(String Id) {
+            for (Houses houses : Houses.values()) {
+                if (houses.getId().equals(Id)) {
                     return houses.chest;
                 }
             }

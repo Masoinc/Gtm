@@ -4,6 +4,7 @@ import me.masonic.mc.Core;
 import me.masonic.mc.Function.House;
 import me.masonic.mc.Utility.RunCmd;
 import net.milkbowl.vault.permission.Permission;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,7 +22,7 @@ public class GtmVip implements CommandExecutor {
     private static HashMap<String, Integer> VIP_LIST = new HashMap<>();
     private static HashMap<String, Integer> VIP_TAXI_LIST = new HashMap<>();
 
-    private void narrateCharged(Player p, String vip) {
+    private static void narrateCharged(Player p, String vip) {
         String[] msgs = new String[10];
         msgs[0] = "";
         msgs[1] = "";
@@ -57,81 +58,47 @@ public class GtmVip implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 
         if (!(commandSender instanceof Player)) {
-            return true;
-        }
+            //gtmvip upgrade vip Masonic
+            switch (args.length) {
+                case 3:
+                    switch (args[0]) {
+                        case "upgrade":
+                            Player p = Bukkit.getPlayer(args[2]);
+                            giveVipPer(args[1].toLowerCase(), p);
+                            return true;
 
-        Player p = (Player) commandSender;
-
-        if (!(p.isOp())) {
-            return true;
-        }
-
-        switch (args.length) {
-            case 0:
-                return true;
-            case 2:
-                if (args[0].equals("upgrade")) {
-                    switch (args[1].toLowerCase()) {
-                        case "vip":
-                            name = "§6VIP";
-                            narrateCharged(p, name);
-                            RunCmd.runOp(p, "pex user " + p.getName() + " group add vip");
-                            Core.getEconomy().depositPlayer(p, 100000);
-                            try {
-                                House.addHouseLimit(p, 1);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                            return true;
-                        case "vip+":
-                            name = "§aVIP+";
-                            narrateCharged(p, name);
-                            RunCmd.runOp(p, "pex user " + p.getName() + " group add vip+");
-                            Core.getEconomy().depositPlayer(p, 250000);
-                            try {
-                                House.addHouseLimit(p, 2);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                            return true;
-                        case "svip":
-                            name = "§3SVIP";
-                            RunCmd.runOp(p, "pex user " + p.getName() + " group add svip");
-                            Core.getEconomy().depositPlayer(p, 500000);
-                            try {
-                                House.addHouseLimit(p, 3);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                            return true;
-                        case "svip+":
-                            name = "§5SVIP+";
-                            narrateCharged(p, name);
-                            RunCmd.runOp(p, "pex user " + p.getName() + " group add svip+");
-                            Core.getEconomy().depositPlayer(p, 1000000);
-                            try {
-                                House.addHouseLimit(p, 5);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                            return true;
-                        case "mvp":
-                            name = "§cMVP";
-                            narrateCharged(p, name);
-                            RunCmd.runOp(p, "pex user " + p.getName() + " group add mvp");
-                            Core.getEconomy().depositPlayer(p, 2000000);
-                            try {
-                                House.addHouseLimit(p, 10);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
                         default:
                             return true;
+
                     }
-                }
-            default:
+                default:
+                    return true;
+            }
+        } else {
+            Player p = (Player) commandSender;
+
+            if (!(p.isOp())) {
                 return true;
+            }
+
+            switch (args.length) {
+                case 0:
+                    return true;
+
+                case 2:
+                    switch (args[0]) {
+                        case "upgrade":
+                            giveVipPer(args[1].toLowerCase(),p);
+                            return true;
+                        default:
+                            return true;
+
+                    }
+                default:
+                    return true;
+            }
         }
+
     }
 //    public static String getVipRank(Player p,boolean...output$priority) {
 //        if (output$priority !=null) {
@@ -147,6 +114,65 @@ public class GtmVip implements CommandExecutor {
 //            return "default";
 //        }
 
+    private static void giveVipPer(String rank, Player p){
+        switch (rank) {
+            case "vip":
+                name = "§6VIP";
+                narrateCharged(p, name);
+                RunCmd.runOp(p, "pex user " + p.getName() + " group add vip");
+                Core.getEconomy().depositPlayer(p, 100000);
+                try {
+                    House.addHouseLimit(p, 1);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return;
+            case "vip+":
+                name = "§aVIP+";
+                narrateCharged(p, name);
+                RunCmd.runOp(p, "pex user " + p.getName() + " group add vip+");
+                Core.getEconomy().depositPlayer(p, 250000);
+                try {
+                    House.addHouseLimit(p, 2);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return;
+            case "svip":
+                name = "§3SVIP";
+                RunCmd.runOp(p, "pex user " + p.getName() + " group add svip");
+                Core.getEconomy().depositPlayer(p, 500000);
+                try {
+                    House.addHouseLimit(p, 3);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return;
+            case "svip+":
+                name = "§5SVIP+";
+                narrateCharged(p, name);
+                RunCmd.runOp(p, "pex user " + p.getName() + " group add svip+");
+                Core.getEconomy().depositPlayer(p, 1000000);
+                try {
+                    House.addHouseLimit(p, 5);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return;
+            case "mvp":
+                name = "§cMVP";
+                narrateCharged(p, name);
+                RunCmd.runOp(p, "pex user " + p.getName() + " group add mvp");
+                Core.getEconomy().depositPlayer(p, 2000000);
+                try {
+                    House.addHouseLimit(p, 10);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            default:
+                return;
+        }
+    }
     public static String getVipRank(Player p) {
         String res = "default";
         for (String group : VIP_LIST.keySet()) {

@@ -29,6 +29,9 @@ public class GtmHouse implements CommandExecutor {
             case "gui":
                 p.openInventory(House.getHouseGUI(p));
                 return true;
+            case "list":
+                House.getBuyHouseListGUI(p);
+                return true;
             case "buy":
                 if (args.length != 2) {
                     p.sendMessage("§8[ §6GTM §8] §7参数有误");
@@ -54,7 +57,9 @@ public class GtmHouse implements CommandExecutor {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+            default:
+                p.sendMessage("§8[ §6GTM §8] §7参数有误");
+                return true;
         }
-        return true;
     }
 }
