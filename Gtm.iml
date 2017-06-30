@@ -152,5 +152,7 @@
     <orderEntry type="library" name="ProtocolLib" level="project" />
     <orderEntry type="library" name="LibsDisguises" level="project" />
     <orderEntry type="library" name="LibsDisguises-9.1.2" level="project" />
+    <orderEntry type="library" name="BungeeTabListPlus_BukkitBridge-2.7.4" level="project" />
+    <orderEntry type="library" name="SimpleKillTracker" level="project" />
   </component>
 </module>

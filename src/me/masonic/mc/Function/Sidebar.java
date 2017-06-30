@@ -39,6 +39,9 @@ public class Sidebar implements Listener {
             List<String> info = Arrays.asList(
                     "§6◇ §7银行余额:    ",
                     "§8-> §6" + Core.getEconomy().getBalance(p) + " §7黑币",
+                    "§0",
+                    "§6◇ §7通缉星数:    ",
+                    "§8-> " + Hostility.getHostility$Formatted(p),
                     "§1",
                     "§6◇ §7所在帮派:    ",
                     "§8-> §6" + GangsPlusApi.getPlayersGang(p).getFormattedName(),
@@ -54,7 +57,10 @@ public class Sidebar implements Listener {
             List<String> info = Arrays.asList(
                     "§6◇ §7银行余额:    ",
                     "§8-> §6" + Core.getEconomy().getBalance(p) + " §7黑币",
-                    "§2",
+                    "§0",
+                    "§6◇ §7通缉星数:    ",
+                    "§8-> " + Hostility.getHostility$Formatted(p),
+                    "§1",
                     "§6◇ §7犯罪等级:    ",
                     "§8-> §8[ " + GtmRank.getRank$Name(p) + " §8]",
                     "§3",
