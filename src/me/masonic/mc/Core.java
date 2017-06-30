@@ -67,6 +67,7 @@ public class Core extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Sidebar(this), this);
         getServer().getPluginManager().registerEvents(new Bossbar(this), this);
         getServer().getPluginManager().registerEvents(new GtmRank(), this);
+        getServer().getPluginManager().registerEvents(new Hostility(), this);
         this.getCommand("gtmatm").setExecutor(new GtmAtm());
         this.getCommand("gtmkit").setExecutor(new GtmKit());
         this.getCommand("gtmrank").setExecutor(new GtmRank());
