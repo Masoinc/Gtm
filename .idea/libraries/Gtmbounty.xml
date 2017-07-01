@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gtmbounty">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/Gtmbounty.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

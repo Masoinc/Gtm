@@ -4,6 +4,7 @@ import me.clip.placeholderapi.external.EZPlaceholderHook;
 import me.masonic.mc.Cmd.GtmCoinParticle;
 import me.masonic.mc.Cmd.GtmDailyReward;
 import me.masonic.mc.Core;
+import me.masonic.mc.Function.Hostility;
 import me.masonic.mc.Function.House;
 import org.bukkit.entity.Player;
 
@@ -52,6 +53,10 @@ public class HookPapi extends EZPlaceholderHook {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+        //%gtm_getHostility%
+        if (identifier.equals("getHostility")) {
+            return Hostility.getHostility$Formatted(p);
         }
 
         return null;
