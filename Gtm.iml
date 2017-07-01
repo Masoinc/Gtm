@@ -155,5 +155,6 @@
     <orderEntry type="library" name="BungeeTabListPlus_BukkitBridge-2.7.4" level="project" />
     <orderEntry type="library" name="SimpleKillTracker" level="project" />
     <orderEntry type="library" name="Gtmbounty" level="project" />
+    <orderEntry type="library" name="MythicMobs" level="project" />
   </component>
 </module>

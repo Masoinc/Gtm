@@ -22,6 +22,8 @@ import java.sql.SQLException;
 
 public class Core extends JavaPlugin {
 
+    private static Core plugin;
+
     private static Economy economy = null;
     private static org.bukkit.permissions.Permission permission = null;
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/gtm";
@@ -43,8 +45,14 @@ public class Core extends JavaPlugin {
         economy = rsp.getProvider();
     }
 
+    public static Core getInstance() {
+        return plugin;
+    }
+
     @Override
     public void onEnable() {
+
+        plugin = this;
 
         new HookPapi(this).hook(); //Hook Papi
 
@@ -77,6 +85,7 @@ public class Core extends JavaPlugin {
         this.getCommand("gtmhouse").setExecutor(new GtmHouse());
         this.getCommand("gtmtaxi").setExecutor(new GtmTaxi(this));
         this.getCommand("gtmvip").setExecutor(new GtmVip());
+        this.getCommand("gtmcop").setExecutor(new GtmCop());
         initializeEconomy(); //Hook EcoSystem
 
 
