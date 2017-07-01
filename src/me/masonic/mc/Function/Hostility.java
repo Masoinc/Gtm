@@ -100,7 +100,8 @@ public class Hostility implements Listener {
                     if (!KILL_MAP.containsKey(p)) {
                         continue;
                     }
-                    KILL_MAP.compute(p, (k, v) -> v == 0 ? 0 : v++);
+
+                    p.sendMessage("§8[ §6GTM §8] §7你的通缉星数随时间降低了" );
                     p.sendMessage("§8[ §6GTM §8] §7你目前的通缉星数: " + getHostility$Formatted(p));
 
                 }
