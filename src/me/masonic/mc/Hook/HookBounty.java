@@ -21,6 +21,11 @@ public class HookBounty {
         double b = Hostility.getHostility$Bounty(p);
         if ((bountyInfo = bountyManager.getBountyInfo(p.getUniqueId())) == null) {
             bountyManager.addBountyInfo(p.getUniqueId(), p.getName(), b, true);
+
+            for (Player recv : Bukkit.getOnlinePlayers()) {
+                recv.sendMessage("§8[ §6GTM §8] §7感染区联合警署对 §6" + p.getName() + " §7追加了 §6" + b + " §7黑币悬赏额");
+            }
+
         } else {
 
             bountyInfo = bountyManager.getBountyInfo(p.getUniqueId());
@@ -28,11 +33,10 @@ public class HookBounty {
                 b = Hostility.getHostility$Bounty(p) - bountyInfo.getBountyPrice();
                 bountyInfo.addBountyPrice(b);
 
-                Bukkit.broadcastMessage("§8[ §6GTM §8] §7感染区联合警署向 §6" + p.getName() + " §7追加了 §6" + b + "§7黑币悬赏额");
-
-
+                for (Player recv : Bukkit.getOnlinePlayers()) {
+                    recv.sendMessage("§8[ §6GTM §8] §7感染区联合警署对 §6" + p.getName() + " §7追加了 §6" + b + " §7黑币悬赏额");
+                }
             }
         }
     }
-
 }

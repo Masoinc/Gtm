@@ -4,6 +4,7 @@ import me.masonic.mc.Core;
 import me.masonic.mc.Hook.HookBounty;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -24,6 +25,7 @@ public class Hostility implements Listener {
 
     private static HashMap<Player, Integer> KILL_MAP = new HashMap<>();
 
+    @EventHandler
     public void onKill(EntityDeathEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
@@ -33,20 +35,18 @@ public class Hostility implements Listener {
             p.sendMessage("§8[ §6GTM §8] §7你的通缉星数已清零");
 
             //增加通缉
-            Player killer = p.getKiller();
-            if (killer != null) {
-
-                KILL_MAP.compute(killer, (k, v) -> k == null ? null : v + 1);
-                killer.sendMessage("§8[ §6GTM §8] §7你目前的通缉星数: " + getHostility$Formatted(killer));
-
-                new HookBounty().addBountyByGov(p);
-
-            } else {
+            Player k = p.getKiller();
+            if (k == null) {
                 return;
             }
+            KILL_MAP.put(k, KILL_MAP.containsKey(p) ? KILL_MAP.get(p) + 1 : 1);
+            k.sendMessage("§8[ §6GTM §8] §7你目前的通缉星数: " + getHostility$Formatted(k));
 
+            Sidebar.sendBar(k);
+            Sidebar.sendBar(p);
+
+            new HookBounty().addBountyByGov(k);
         }
-
     }
 
 
@@ -66,7 +66,6 @@ public class Hostility implements Listener {
                                         (killcount <= 10 ? "§d★★★★§7☆" : "§c★★★★★"))));
 
 
-
     }
 
     public static int getHostility$Integer(Player p) {
@@ -80,10 +79,9 @@ public class Hostility implements Listener {
                                         (killcount <= 10 ? 4 : 5))));
 
 
-
     }
 
-    public static int getHostility$Bounty(Player p){
+    public static int getHostility$Bounty(Player p) {
 
         int killcount = (KILL_MAP.getOrDefault(p, 0));
 
@@ -107,7 +105,7 @@ public class Hostility implements Listener {
 
                 }
             }
-        }.runTaskTimer(plugin,0,12000);
+        }.runTaskTimer(plugin, 0, 12000);
 
     }
 

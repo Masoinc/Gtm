@@ -30,7 +30,7 @@ public class Sidebar implements Listener {
         sendBar(e.getPlayer());
     }
 
-    private void sendBar(Player p) {
+    public static void sendBar(Player p) {
         Sidebar_v1_10_R1 bar = new Sidebar_v1_10_R1(p);
         bar.remove();
         bar.sendUpdate();
