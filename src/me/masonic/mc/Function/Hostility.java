@@ -1,8 +1,12 @@
 package me.masonic.mc.Function;
 
+import me.masonic.mc.Core;
+import me.masonic.mc.Hook.HookBounty;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 
@@ -11,9 +15,14 @@ import java.util.HashMap;
  * 2017-6-30-0030
  */
 public class Hostility implements Listener {
-    private static HashMap<Player, Integer> KILL_MAP = new HashMap<>();
-    private static HashMap<Player, Integer> HOSTILITY_MAP = new HashMap<>();
 
+    private static Core plugin;
+
+    public Hostility(Core plugin) {
+        Hostility.plugin = plugin;
+    }
+
+    private static HashMap<Player, Integer> KILL_MAP = new HashMap<>();
 
     public void onKill(EntityDeathEvent e) {
         if (e.getEntity() instanceof Player) {
@@ -30,6 +39,10 @@ public class Hostility implements Listener {
                 KILL_MAP.compute(killer, (k, v) -> k == null ? null : v + 1);
                 killer.sendMessage("§8[ §6GTM §8] §7你目前的通缉星数: " + getHostility$Formatted(killer));
 
+                new HookBounty().addBountyByGov(p);
+
+            } else {
+                return;
             }
 
         }
@@ -51,6 +64,50 @@ public class Hostility implements Listener {
                         (killcount <= 2 ? "§3★★§7☆☆☆" :
                                 (killcount <= 5 ? "§6★★★§7☆☆" :
                                         (killcount <= 10 ? "§d★★★★§7☆" : "§c★★★★★"))));
+
+
+
+    }
+
+    public static int getHostility$Integer(Player p) {
+
+        int killcount = (KILL_MAP.getOrDefault(p, 0));
+
+        return killcount == 0 ? 0 :
+                (killcount <= 1 ? 1 :
+                        (killcount <= 2 ? 2 :
+                                (killcount <= 5 ? 3 :
+                                        (killcount <= 10 ? 4 : 5))));
+
+
+
+    }
+
+    public static int getHostility$Bounty(Player p){
+
+        int killcount = (KILL_MAP.getOrDefault(p, 0));
+
+        return killcount == 0 ? 0 :
+                (killcount <= 1 ? 500 :
+                        (killcount <= 2 ? 1000 :
+                                (killcount <= 5 ? 2000 :
+                                        (killcount <= 10 ? 3000 : 5000))));
+    }
+
+    public void clearHostility() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    if (!KILL_MAP.containsKey(p)) {
+                        continue;
+                    }
+                    KILL_MAP.compute(p, (k, v) -> v == 0 ? 0 : v++);
+                    p.sendMessage("§8[ §6GTM §8] §7你目前的通缉星数: " + getHostility$Formatted(p));
+
+                }
+            }
+        }.runTaskTimer(plugin,0,12000);
 
     }
 

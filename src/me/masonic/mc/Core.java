@@ -67,7 +67,7 @@ public class Core extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Sidebar(this), this);
         getServer().getPluginManager().registerEvents(new Bossbar(this), this);
         getServer().getPluginManager().registerEvents(new GtmRank(), this);
-        getServer().getPluginManager().registerEvents(new Hostility(), this);
+        getServer().getPluginManager().registerEvents(new Hostility(this), this);
         this.getCommand("gtmatm").setExecutor(new GtmAtm());
         this.getCommand("gtmkit").setExecutor(new GtmKit());
         this.getCommand("gtmrank").setExecutor(new GtmRank());
@@ -88,6 +88,7 @@ public class Core extends JavaPlugin {
         new Undead(this).checkTime();
         new Sidebar(this).sendSchedulely();
         new Bossbar(this).sendSchedulely();
+        new Hostility(this).clearHostility();
 
 
         try { //初始化驱动
