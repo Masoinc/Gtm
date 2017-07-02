@@ -32,6 +32,9 @@ commands:
   gtmvip:
     description: gtmvip
     usage: /gtmvip
+  gtmcop:
+    description: gtmcop
+    usage: /gtmcop
 permissions:
   gtm.rank.criminal:
     description: Access to all Criminal rank permissions

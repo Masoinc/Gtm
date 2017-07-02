@@ -39,21 +39,21 @@ public class Hostility implements Listener {
             if (k == null) {
                 return;
             }
-            KILL_MAP.put(k, KILL_MAP.containsKey(p) ? KILL_MAP.get(p) + 1 : 1);
+            KILL_MAP.put(k, KILL_MAP.containsKey(k) ? KILL_MAP.get(k) + 1 : 1);
             k.sendMessage("§8[ §6GTM §8] §7你目前的通缉星数: " + getHostility$Formatted(k));
 
             Sidebar.sendBar(k);
             Sidebar.sendBar(p);
 
+            Cop.summonCop(k);
+
             new HookBounty().addBountyByGov(k);
         }
     }
 
-
     public int getHostility(Player p) {
         return KILL_MAP.getOrDefault(p, 0);
     }
-
 
     public static String getHostility$Formatted(Player p) {
 
@@ -105,6 +105,8 @@ public class Hostility implements Listener {
                     p.sendMessage("§8[ §6GTM §8] §7你目前的通缉星数: " + getHostility$Formatted(p));
 
                 }
+
+
             }
         }.runTaskTimer(plugin, 0, 12000);
 
