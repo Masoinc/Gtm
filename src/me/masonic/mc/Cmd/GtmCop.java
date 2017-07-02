@@ -9,13 +9,13 @@ import org.bukkit.entity.Player;
  * Mason Project
  * 2017-7-1-0001
  */
-public class GtmCop implements CommandExecutor{
+public class GtmCop implements CommandExecutor {
 
 
     @Override
     public boolean onCommand(CommandSender c, Command cmd, String s, String[] args) {
 
-        Player p= (Player)c;
+        Player p = (Player) c;
 
 //        switch(args.length) {
 //            case 1:

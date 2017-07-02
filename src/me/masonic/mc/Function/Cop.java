@@ -21,24 +21,22 @@ public class Cop {
                     case 0:
                         return;
                     case 1:
-                        HookMythicMobs.spawnCop(p, 1, 3, 20);
+                        HookMythicMobs.spawnCop(p, 1, 3, 10);
                         return;
                     case 2:
-                        HookMythicMobs.spawnCop(p, 1, 6, 15);
+                        HookMythicMobs.spawnCop(p, 1, 6, 10);
                         return;
                     case 3:
-                        HookMythicMobs.spawnCop(p, 2, 5, 15);
+                        HookMythicMobs.spawnCop(p, 2, 5, 8);
                         return;
                     case 4:
-                        HookMythicMobs.spawnCop(p, 2, 8, 12);
+                        HookMythicMobs.spawnCop(p, 2, 8, 8);
                         return;
                     case 5:
-                        HookMythicMobs.spawnCop(p, 3, 10, 10);
+                        HookMythicMobs.spawnCop(p, 3, 10, 8);
 
                 }
             }
-
-
         }.runTaskLater(Core.getInstance(), 200);
     }
 }

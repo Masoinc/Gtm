@@ -16,6 +16,12 @@ public class HookBounty {
     private AdvancedBounties advancedBounties = AdvancedBounties.getInstance();
     private BountyManager bountyManager = advancedBounties.bountyManager;
 
+    public static double getBounty(Player p) {
+        BountyInfo bountyInfo = AdvancedBounties.getInstance().bountyManager.getBountyInfo(p.getUniqueId());
+        return bountyInfo.getBountyPrice();
+
+    }
+
     public void addBountyByGov(Player p) {
         BountyInfo bountyInfo;
         double b = Hostility.getHostility$Bounty(p);

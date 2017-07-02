@@ -3,9 +3,11 @@ package me.masonic.mc.Function;
 import me.masonic.mc.Core;
 import me.masonic.mc.Hook.HookBounty;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.PigZombie;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -26,24 +28,26 @@ public class Hostility implements Listener {
     private static HashMap<Player, Integer> KILL_MAP = new HashMap<>();
 
     @EventHandler
-    public void onKill(EntityDeathEvent e) {
+    public void onKilled(EntityDeathEvent e) {
         if (e.getEntity() instanceof Player) {
             Player p = (Player) e.getEntity();
 
             //移除通缉
             KILL_MAP.remove(p);
+            Sidebar.sendBar(p);
             p.sendMessage("§8[ §6GTM §8] §7你的通缉星数已清零");
+
 
             //增加通缉
             Player k = p.getKiller();
-            if (k == null) {
+            if (k == null || HookBounty.getBounty(p) > 1) {
                 return;
             }
             KILL_MAP.put(k, KILL_MAP.containsKey(k) ? KILL_MAP.get(k) + 1 : 1);
             k.sendMessage("§8[ §6GTM §8] §7你目前的通缉星数: " + getHostility$Formatted(k));
 
             Sidebar.sendBar(k);
-            Sidebar.sendBar(p);
+
 
             Cop.summonCop(k);
 
@@ -51,8 +55,25 @@ public class Hostility implements Listener {
         }
     }
 
+    public void onDamaged(EntityDamageByEntityEvent e) {
+        if (e.getEntity() instanceof Player && e.getDamager() instanceof PigZombie) {
+            Player p = (Player) e.getEntity();
+            if (e.getFinalDamage() > p.getHealth() && getHostility$Integer(p) > 0) {
+
+                p.sendMessage("§8[ §6GTM §8] §7你已被警署佣兵击杀");
+                p.sendMessage("§8[ §6GTM §8] §7已从你的银行账户中扣除 §6" + HookBounty.getBounty(p) + "§7黑币");
+
+            }
+        }
+    }
+
     public int getHostility(Player p) {
         return KILL_MAP.getOrDefault(p, 0);
+    }
+
+    public void setHostility(Player p, int killcount) {
+        KILL_MAP.put(p, killcount);
+
     }
 
     public static String getHostility$Formatted(Player p) {
@@ -101,7 +122,7 @@ public class Hostility implements Listener {
                         continue;
                     }
 
-                    p.sendMessage("§8[ §6GTM §8] §7你的通缉星数随时间降低了" );
+                    p.sendMessage("§8[ §6GTM §8] §7你的通缉星数随时间降低了");
                     p.sendMessage("§8[ §6GTM §8] §7你目前的通缉星数: " + getHostility$Formatted(p));
 
                 }
