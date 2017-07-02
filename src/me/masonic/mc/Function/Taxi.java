@@ -159,13 +159,14 @@ public class Taxi implements Listener {
         }
 
         public static Warp getByName(String name) {
-            for(Warp w:Warp.values()) {
-                if (w.getName().equals(name)){
+            for (Warp w : Warp.values()) {
+                if (w.getName().equals(name)) {
                     return w;
                 }
             }
             return null;
         }
+
         private String name;
 
         public Location getLocation() {
@@ -253,7 +254,7 @@ class TaxiRandomTask extends BukkitRunnable {
         if (times == 10 || times == 15) {
             player.sendMessage("§8[ §6GTM §8] §7你的出租车将在 §a" + times-- + " §7秒后到达");
         } else if (times <= 0) {
-            int random = (int) (Math.random() * 14);
+            int random = (int) (Math.random() * 14 + 1);
             int count = 0;
             for (Taxi.Warp warp : Taxi.Warp.values()) {
                 if (random == count) {
