@@ -6,6 +6,7 @@ import me.masonic.mc.Cmd.GtmDailyReward;
 import me.masonic.mc.Core;
 import me.masonic.mc.Function.Hostility;
 import me.masonic.mc.Function.House;
+import me.masonic.mc.Function.Profession;
 import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
@@ -57,6 +58,10 @@ public class HookPapi extends EZPlaceholderHook {
         //%gtm_getHostility%
         if (identifier.equals("getHostility")) {
             return Hostility.getHostility$Formatted(p);
+        }
+        //%gtm_getProMode%
+        if (identifier.equals("getProMode")) {
+            return Profession.getProMode$Name(p);
         }
 
         return null;

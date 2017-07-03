@@ -76,6 +76,7 @@ public class Core extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new Bossbar(this), this);
         getServer().getPluginManager().registerEvents(new GtmRank(), this);
         getServer().getPluginManager().registerEvents(new Hostility(this), this);
+        getServer().getPluginManager().registerEvents(new Secure(), this);
         this.getCommand("gtmatm").setExecutor(new GtmAtm());
         this.getCommand("gtmkit").setExecutor(new GtmKit());
         this.getCommand("gtmrank").setExecutor(new GtmRank());
@@ -86,6 +87,7 @@ public class Core extends JavaPlugin {
         this.getCommand("gtmtaxi").setExecutor(new GtmTaxi(this));
         this.getCommand("gtmvip").setExecutor(new GtmVip());
         this.getCommand("gtmcop").setExecutor(new GtmCop());
+        this.getCommand("gtmpro").setExecutor(new GtmPro());
         initializeEconomy(); //Hook EcoSystem
 
 

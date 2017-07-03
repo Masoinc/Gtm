@@ -35,6 +35,9 @@ commands:
   gtmcop:
     description: gtmcop
     usage: /gtmcop
+  gtmpro:
+    description: gtmpro
+    usage: /gtmpro
 permissions:
   gtm.rank.criminal:
     description: Access to all Criminal rank permissions
@@ -68,3 +71,9 @@ permissions:
     children:
       crackshot.use.g36_a: true
       deluxetags.tag.dealer: true
+  gtm.mode.cop:
+    description: Access to all Cop Mode Specialized permissions
+    children:
+      deluxetags.tag.cop: true
+      crackshot.use.stun_a: true
+      crackshot.use.shield1: true
