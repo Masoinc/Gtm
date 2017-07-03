@@ -32,6 +32,7 @@ public class Core extends JavaPlugin {
     private static Connection connection;
 
     // 插件首次启用时，触发此事件
+
     public static Connection getConnection() {
         return connection;
     }
@@ -77,6 +78,8 @@ public class Core extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GtmRank(), this);
         getServer().getPluginManager().registerEvents(new Hostility(this), this);
         getServer().getPluginManager().registerEvents(new Secure(), this);
+
+
         this.getCommand("gtmatm").setExecutor(new GtmAtm());
         this.getCommand("gtmkit").setExecutor(new GtmKit());
         this.getCommand("gtmrank").setExecutor(new GtmRank());

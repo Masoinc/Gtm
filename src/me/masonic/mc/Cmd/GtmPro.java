@@ -34,12 +34,9 @@ public class GtmPro implements CommandExecutor {
                         return true;
                     default:
                         c.sendMessage("§8[ §6GTM §8] §7参数有误");
-
                 }
-
             default:
                 c.sendMessage("§8[ §6GTM §8] §7参数有误");
-
         }
 
 
