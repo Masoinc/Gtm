@@ -156,5 +156,6 @@
     <orderEntry type="library" name="SimpleKillTracker" level="project" />
     <orderEntry type="library" name="Gtmbounty" level="project" />
     <orderEntry type="library" name="MythicMobs" level="project" />
+    <orderEntry type="library" name="HolographicDisplays" level="project" />
   </component>
 </module>

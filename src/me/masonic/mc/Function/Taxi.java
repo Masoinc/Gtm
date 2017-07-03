@@ -25,6 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static me.masonic.mc.Function.Taxi.Warp.SPAWN;
+import static me.masonic.mc.Function.Taxi.Warp.getById;
 
 public class Taxi implements Listener {
     private final Core plugin;
@@ -136,26 +137,50 @@ public class Taxi implements Listener {
 
 
     enum Warp {
-        SPAWN("安全区", new Location(Bukkit.getWorld("GTM_lobby"), -335, 26, 206, 0, 0)),
-        RANDOM1("城中密林", new Location(Bukkit.getWorld("GTM_city"), -246, 82, -54, 0, 0)),
-        RANDOM2("荒郊", new Location(Bukkit.getWorld("GTM_city"), 183, 86, -144, 0, 180)),
-        RANDOM3("好麦坞山", new Location(Bukkit.getWorld("GTM_city"), 202, 74, 282, 0, -90)),
-        RANDOM4("瑞士银行", new Location(Bukkit.getWorld("GTM_city"), -202, 74, 282, 0, -180)),
-        RANDOM5("重工业区", new Location(Bukkit.getWorld("GTM_city"), -270, 74, 380, 0, -90)),
-        RANDOM6("41号大道", new Location(Bukkit.getWorld("GTM_city"), -65, 74, 267, 0, 0)),
-        RANDOM7("寂静孤岛", new Location(Bukkit.getWorld("GTM_city"), 242, 67, 391, 0, 180)),
-        RANDOM8("中央花园", new Location(Bukkit.getWorld("GTM_city"), 61, 69, 265, 0, 90)),
-        RANDOM9("地下隧道", new Location(Bukkit.getWorld("GTM_city"), 214, 83, 190, 0, -270)),
-        RANDOM10("足球场", new Location(Bukkit.getWorld("GTM_city"), -723, 66, -192, 0, -180)),
-        RANDOM11("十字路口", new Location(Bukkit.getWorld("GTM_city"), -121, 74, 158, 90, 0)),
-        RANDOM12("沙滩海岸", new Location(Bukkit.getWorld("GTM_city"), 46, 64, 402, -90, 0)),
-        RANDOM13("吊装码头", new Location(Bukkit.getWorld("GTM_city"), -358, 73, 350, -90, 0)),
-        RANDOM14("露营地", new Location(Bukkit.getWorld("GTM_city"), 368, 73, -266, 180, 0)),
-        HOUSE1("H1", new Location(Bukkit.getWorld("GTM_city"), -217, 73, 102, -90, 0)),
-        HOUSE2("H2", new Location(Bukkit.getWorld("GTM_city"), -132, 73, 129, -90, 0));
+        SPAWN("SPAWN","安全区", new Location(Bukkit.getWorld("GTM_lobby"), -335, 26, 206, 0, 0)),
+        RANDOM1("RANDOM1","城中密林", new Location(Bukkit.getWorld("GTM_city"), -246, 82, -54, 0, 0)),
+        RANDOM2("RANDOM2","荒郊", new Location(Bukkit.getWorld("GTM_city"), 183, 86, -144, 0, 180)),
+        RANDOM3("RANDOM3","好麦坞山", new Location(Bukkit.getWorld("GTM_city"), 202, 74, 282, 0, -90)),
+        RANDOM4("RANDOM4","瑞士银行", new Location(Bukkit.getWorld("GTM_city"), -202, 74, 282, 0, -180)),
+        RANDOM5("RANDOM5","重工业区", new Location(Bukkit.getWorld("GTM_city"), -270, 74, 380, 0, -90)),
+        RANDOM6("RANDOM6","41号大道", new Location(Bukkit.getWorld("GTM_city"), -65, 74, 267, 0, 0)),
+        RANDOM7("RANDOM7","寂静孤岛", new Location(Bukkit.getWorld("GTM_city"), 242, 67, 391, 0, 180)),
+        RANDOM8("RANDOM8","中央花园", new Location(Bukkit.getWorld("GTM_city"), 61, 69, 265, 0, 90)),
+        RANDOM9("RANDOM9","地下隧道", new Location(Bukkit.getWorld("GTM_city"), 214, 83, 190, 0, -270)),
+        RANDOM10("RANDOM10","足球场", new Location(Bukkit.getWorld("GTM_city"), -723, 66, -192, 0, -180)),
+        RANDOM11("RANDOM11","十字路口", new Location(Bukkit.getWorld("GTM_city"), -121, 74, 158, 90, 0)),
+        RANDOM12("RANDOM12","沙滩海岸", new Location(Bukkit.getWorld("GTM_city"), 46, 64, 402, -90, 0)),
+        RANDOM13("RANDOM13","吊装码头", new Location(Bukkit.getWorld("GTM_city"), -358, 73, 350, -90, 0)),
+        RANDOM14("RANDOM14","露营地", new Location(Bukkit.getWorld("GTM_city"), 368, 73, -266, 180, 0)),
+        HOUSE1("H1","H1", new Location(Bukkit.getWorld("GTM_city"), -217, 73, 102, -90, 0)),
+        HOUSE2("H2","H2", new Location(Bukkit.getWorld("GTM_city"), -132, 73, 129, -90, 0));
+
+
+
+        private String name;
+        private String id;
+        private Location location;
+
+        Warp(String id, String name, Location loc) {
+            this.name = name;
+            this.location = loc;
+            this.id = id;
+        }
+        public Location getLocation() {
+            return location;
+        }
 
         public String getName() {
             return name;
+        }
+
+        public static Warp getById(String id) {
+            for(Warp warp : Warp.values()) {
+                if (warp.id.equalsIgnoreCase(id)) {
+                    return warp;
+                }
+            }
+            return null;
         }
 
         public static Warp getByName(String name) {
@@ -167,32 +192,24 @@ public class Taxi implements Listener {
             return null;
         }
 
-        private String name;
 
-        public Location getLocation() {
-            return location;
-        }
-
-        private Location location;
-
-        Warp(String name, Location loc) {
-            this.name = name;
-            this.location = loc;
-        }
 
     }
 }
 
 class TaxiWarpTask extends BukkitRunnable {
+
+    private int times;
+    private Player player;
+    private Taxi.Warp warp;
+
     TaxiWarpTask(Player player, int times, Taxi.Warp warp) {
         this.times = times;
         this.player = player;
         this.warp = warp;
     }
 
-    private int times;
-    private Player player;
-    private Taxi.Warp warp;
+
 
     @Override
     public void run() {
@@ -211,6 +228,12 @@ class TaxiWarpTask extends BukkitRunnable {
 }
 
 class TaxiHouseTask extends BukkitRunnable {
+
+    private int times;
+    private Player player;
+    private String world;
+    private String plot;
+
     TaxiHouseTask(Player player, int times, String world, String plot) {
         this.times = times;
         this.player = player;
@@ -218,10 +241,7 @@ class TaxiHouseTask extends BukkitRunnable {
         this.plot = plot;
     }
 
-    private int times;
-    private Player player;
-    private String world;
-    private String plot;
+
 
     @Override
     public void run() {
@@ -254,15 +274,12 @@ class TaxiRandomTask extends BukkitRunnable {
         if (times == 10 || times == 15) {
             player.sendMessage("§8[ §6GTM §8] §7你的出租车将在 §a" + times-- + " §7秒后到达");
         } else if (times <= 0) {
-            int random = (int) (Math.random() * 14 + 1);
-            int count = 0;
-            for (Taxi.Warp warp : Taxi.Warp.values()) {
-                if (random == count) {
-                    player.teleport(warp.getLocation());
-                    NMSHandler.getInstance().getPacketHelper().showTitle(player, "", "§8[ §7已到达-§a" + warp.getName() + " §8]", 10, 40, 10);
-                }
-                count++;
-            }
+            int random = (int) (Math.random() * 14);
+            String id = "RANDOM" + String.valueOf(random);
+            Taxi.Warp warp = getById(id);
+            assert warp != null;
+            player.teleport(warp.getLocation());
+            NMSHandler.getInstance().getPacketHelper().showTitle(player, "", "§8[ §7已到达-§a" + warp.getName() + " §8]", 10, 40, 10);
             this.cancel();
         } else if (times <= 5) {
             player.sendMessage("§8[ §6GTM §8] §7你的出租车将在 §a" + times-- + " §7秒后到达");

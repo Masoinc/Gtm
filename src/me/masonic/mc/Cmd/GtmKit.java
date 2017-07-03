@@ -19,11 +19,11 @@ import java.util.Calendar;
 public class GtmKit implements CommandExecutor {
     private static String name;
 
-    static long getCurrentSTime(long cd) {
+    public static long getCurrentSTime(long cd) {
         return System.currentTimeMillis() / 1000 + cd;
     }
 
-    static long getCurrentSTime() {
+    public static long getCurrentSTime() {
         return System.currentTimeMillis() / 1000;
     }
 
@@ -325,7 +325,7 @@ public class GtmKit implements CommandExecutor {
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " m4a4_a 1");
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " awm_a 1");
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " grenade_a 5"); //手雷
-                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " toaster_a 1"); //感应地雷
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " gastear_a 5");
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " gtmf2 10");
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb4 2");//狙击弹匣
 
@@ -340,6 +340,39 @@ public class GtmKit implements CommandExecutor {
                     return true;
                 case "mafia":
                     name = "§6黑道龙头";
+
+
+                case "cop":
+                    name = "§3§l警察";
+
+                    try {
+                        if (handleCoolDown("kitcop", p)) {
+                            return true;
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load shield1 " + pname + " 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load gtma9 " + pname + " 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load gtma6 " + pname + " 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " s54_a 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " stun_a 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " grenade_a 5"); //手雷
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " gastear_a 5");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " putty_a 5");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " gtmf2 8");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb6 3");//霰弹弹匣
+
+                    silentNarrateDelivered(p, name);
+                    RefreshLore.refreshWeapons(p);
+
+                    try {
+                        setCoolDown("kitcop", p, 2400);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+
                 case "vip":
                     name = "§6§lVIP";
 
