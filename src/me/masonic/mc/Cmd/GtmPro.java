@@ -6,6 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.sql.SQLException;
+
 /**
  * Mason Project
  * 2017-7-2-0002
@@ -24,7 +26,11 @@ public class GtmPro implements CommandExecutor {
             case 2:
                 switch (args[0]) {
                     case "switch":
-                        Profession.switchProMode(p, args[1]);
+                        try {
+                            Profession.switchProMode(p, args[1]);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                         return true;
                     default:
                         c.sendMessage("§8[ §6GTM §8] §7参数有误");
