@@ -91,18 +91,15 @@ public class Profession {
         PreparedStatement statement2 = Core.getConnection().prepareStatement(sql);
         statement2.setObject(1, p.getName());
         ResultSet rs = statement2.executeQuery();
-
-        if (!rs.wasNull()) {
-            if (rs.getInt(1) > (System.currentTimeMillis() / 1000)) {
-
-                return rs.getInt(1) - System.currentTimeMillis();
-
-
+        while (rs.next()) {
+            if (!rs.wasNull()) {
+                if (rs.getInt(1) > (System.currentTimeMillis() / 1000)) {
+                    return rs.getInt(1) - System.currentTimeMillis();
+                }
+            } else {
+                return 0;
             }
-        } else {
-            return 0;
         }
-
         return 0;
 
     }
@@ -119,15 +116,18 @@ public class Profession {
     }
 
     private static boolean setSwitchCD(Player p) throws SQLException {
-
+        int cd = VipRank.getVipRank(p).getSwitchProModeCooldown();
+        //无记录
         if (!SQL.getIfExist(p, "promode")) {
-            String sql2 = "INSERT INTO kit (id) VALUES (?);";
-            PreparedStatement statement = Core.getConnection().prepareStatement(sql2);
-            statement = Core.getConnection().prepareStatement(sql2);
+            String sql = "INSERT INTO promode (id,lastswitch) VALUES (?,"+ getCurrentSTime(cd)+ ");";
+            PreparedStatement statement = Core.getConnection().prepareStatement(sql);
+            statement = Core.getConnection().prepareStatement(sql);
             statement.setObject(1, p.getName());
             statement.executeUpdate();
+            return true;
         }
 
+        //有记录且未过期
         String sql = "SELECT lastswitch FROM promode WHERE id = ? LIMIT 1;";
         PreparedStatement statement2 = Core.getConnection().prepareStatement(sql);
         statement2.setObject(1, p.getName());
@@ -144,7 +144,7 @@ public class Profession {
             }
         }
 
-        int cd = VipRank.getVipRank(p).getSwitchProModeCooldown();
+
         sql = "UPDATE promode SET lastswitch = ? WHERE id = ?;";
         PreparedStatement statement3 = Core.getConnection().prepareStatement(sql);
         statement3.setObject(1, getCurrentSTime(cd));
@@ -163,7 +163,6 @@ public class Profession {
         if (setSwitchCD(p)) {
             for (String per : PROMODE_MAP.keySet()) {
                 if (per.equals(mode)) {
-
                     PermissionsEx.getUser(p).addPermission("gtm.mode." + mode);
                     p.sendMessage("§8[ §6GTM §8] §7你的职业模式已切换至" + PROMODE_MAP.get(per));
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "tags set " + p.getName() + " " + mode);
