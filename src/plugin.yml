@@ -56,6 +56,7 @@ permissions:
     children:
       crackshot.use.qbz95_a: true
       deluxetags.tag.gangster: true
+      gtm.modeaccess.cop: true
   gtm.rank.smuggler:
     description: Access to all Smuggler rank permissions
     children:

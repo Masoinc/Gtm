@@ -70,10 +70,6 @@ public class HookPapi extends EZPlaceholderHook {
             return Hostility.getHostility$Formatted(p);
         }
 
-        //%gtm_getProMode%
-        if (identifier.equals("getProMode")) {
-            return Profession.getProMode$Name(p);
-        }
 
         //%gtm_getSwitchCD%
         if (identifier.equals("getSwitchCD")) {
@@ -87,6 +83,10 @@ public class HookPapi extends EZPlaceholderHook {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+        //%gtm_getProMode$Name%
+        if (identifier.equals("getProMode$Name")) {
+            return Profession.getProMode$Name(p);
         }
 
         return null;

@@ -33,25 +33,27 @@ public class Hostility implements Listener {
             Player p = (Player) e.getEntity();
 
             //移除通缉
-            KILL_MAP.remove(p);
             Sidebar.sendBar(p);
-            p.sendMessage("§8[ §6GTM §8] §7你的通缉星数已清零");
-
 
             //增加通缉
             Player k = p.getKiller();
+
             if (k == null) {
                 return;
             }
-            if (Profession.getProMode(k).equals("cop") && getHostility$Integer(p) > 1) {
-                k.sendMessage("§8[ §6GTM §8] §7你击杀了一位通缉星数为 " + getHostility$Formatted(p) + " §7的嫌疑犯");
-                k.sendMessage("§8[ §6GTM §8] §7已获得其赏金的 §330% §7奖励");
 
-                Core.getEconomy().depositPlayer(k, HookBounty.getBounty(p));
-                k.sendMessage("§8[ §6GTM §8] §6" + HookBounty.getBounty(p) + "§7黑币已存入你的银行账户");
+            if (getHostility$Integer(p) > 1 || HookBounty.getBounty(p) > 0) {
+
+                if(Profession.getProMode$Id(k).equals("cop")) {
+                    k.sendMessage("§8[ §6GTM §8] §7你击杀了一位通缉星数为 " + getHostility$Formatted(p) + " §7的嫌疑犯");
+                    k.sendMessage("§8[ §6GTM §8] §7已获得其赏金的 §330% §7奖励");
+
+                    Core.getEconomy().depositPlayer(k, HookBounty.getBounty(p));
+                    k.sendMessage("§8[ §6GTM §8] §6" + HookBounty.getBounty(p) + "§7黑币已存入你的银行账户");
+
+                }
 
                 return;
-
             }
 
 
@@ -60,20 +62,24 @@ public class Hostility implements Listener {
 
             Sidebar.sendBar(k);
 
-
             Cop.summonCop(k);
 
             new HookBounty().addBountyByGov(k);
         }
     }
-
+    @EventHandler
     public void onDamaged(EntityDamageByEntityEvent e) {
         if (e.getEntity() instanceof Player && e.getDamager() instanceof PigZombie) {
             Player p = (Player) e.getEntity();
             if (e.getFinalDamage() > p.getHealth() && getHostility$Integer(p) > 0) {
 
-                p.sendMessage("§8[ §6GTM §8] §7你已被警署佣兵击杀");
+                for (Player recv: Bukkit.getOnlinePlayers()) {
+                    recv.sendMessage("§8[ §6GTM §8] §6" + p.getName() + " 已被警署佣兵击杀，悬赏额已清零");
+                }
+
                 p.sendMessage("§8[ §6GTM §8] §7已从你的银行账户中扣除 §6" + HookBounty.getBounty(p) + "§7黑币");
+
+                Core.getEconomy().withdrawPlayer(p,HookBounty.getBounty(p));
 
             }
         }
