@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
 
+import static me.masonic.mc.Function.Profession.clearProMode;
+
 /**
  * Mason Project
  * 2017-7-2-0002
@@ -32,14 +34,24 @@ public class GtmPro implements CommandExecutor {
                             e.printStackTrace();
                         }
                         return true;
+
                     default:
                         c.sendMessage("§8[ §6GTM §8] §7参数有误");
                 }
+            case 1:
+                switch (args[0]) {
+                    case "clear":
+                        try {
+                            clearProMode(p);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        return true;
+                }
+
             default:
                 c.sendMessage("§8[ §6GTM §8] §7参数有误");
         }
-
-
         return true;
     }
 }
