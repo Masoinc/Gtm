@@ -7,18 +7,25 @@ import me.masonic.mc.Core;
 import me.masonic.mc.Function.Hostility;
 import me.masonic.mc.Function.House;
 import me.masonic.mc.Function.Profession;
+import me.masonic.mc.Object.VipRank;
 import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
 
 /**
- * Created by Masonic on 2017/6/2 0002.
+ *
+ * Masonic Project
+ * 2017/6/2 0002
+ *
  */
+
 public class HookPapi extends EZPlaceholderHook {
+
     private Core Plugin;
 
     @Override
     public String onPlaceholderRequest(Player p, String identifier) {
+
         //%gtm_getDRCooldown%
         if (identifier.equals("getDRCooldown")) {
             try {
@@ -27,6 +34,7 @@ public class HookPapi extends EZPlaceholderHook {
                 e.printStackTrace();
             }
         }
+
         //%gtm_getMRCooldown%
         if (identifier.equals("getMRCooldown")) {
             try {
@@ -35,6 +43,7 @@ public class HookPapi extends EZPlaceholderHook {
                 e.printStackTrace();
             }
         }
+
         //%gtm_getCP%
         if (identifier.equals("getCP")) {
             try {
@@ -55,13 +64,29 @@ public class HookPapi extends EZPlaceholderHook {
                 e.printStackTrace();
             }
         }
+
         //%gtm_getHostility%
         if (identifier.equals("getHostility")) {
             return Hostility.getHostility$Formatted(p);
         }
+
         //%gtm_getProMode%
         if (identifier.equals("getProMode")) {
             return Profession.getProMode$Name(p);
+        }
+
+        //%gtm_getSwitchCD%
+        if (identifier.equals("getSwitchCD")) {
+            return String.valueOf(VipRank.getVipRank(p).getSwitchProModeCooldown())  ;
+        }
+
+        //%gtm_getSwitchLeftCD%
+        if (identifier.equals("getSwitchLeftCD")) {
+            try {
+                return Profession.getFormattedCD(p);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return null;
@@ -71,6 +96,9 @@ public class HookPapi extends EZPlaceholderHook {
         super(Plugin, "gtm");
         this.Plugin = Plugin;
     }
+
+
+
     public static String getRank(Player p) {
         if (p.hasPermission("gtm.rank.dealer")) {
             return "§d绝命毒贩";

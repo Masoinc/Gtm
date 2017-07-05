@@ -18,6 +18,8 @@ import static me.masonic.mc.Cmd.GtmKit.getCurrentSTime;
  * Mason Project
  * 2017-7-2-0002
  */
+
+
 public class Profession {
 
     private static HashMap<String, String> PROMODE_MAP = new HashMap<>();
@@ -54,12 +56,11 @@ public class Profession {
 
                 return node;
 
-
             }
 
         }
 
-        return null;
+        return "";
 
     }
 
@@ -80,6 +81,43 @@ public class Profession {
     }
 
 
+    public static long getSwitchCD(Player p) throws SQLException {
+
+        if (!SQL.getIfExist(p, "promode")) {
+            return 0;
+        }
+
+        String sql = "SELECT lastswitch FROM promode WHERE id = ? LIMIT 1;";
+        PreparedStatement statement2 = Core.getConnection().prepareStatement(sql);
+        statement2.setObject(1, p.getName());
+        ResultSet rs = statement2.executeQuery();
+
+        if (!rs.wasNull()) {
+            if (rs.getInt(1) > (System.currentTimeMillis() / 1000)) {
+
+                return rs.getInt(1) - System.currentTimeMillis();
+
+
+            }
+        } else {
+            return 0;
+        }
+
+        return 0;
+
+    }
+
+    public static String getFormattedCD(Player p) throws SQLException {
+        if (getSwitchCD(p) == 0) {
+            return "§30 §7小时 §30 §7分钟";
+        } else {
+            long cd = getSwitchCD(p) - (System.currentTimeMillis() / 1000);
+            long day = cd / 3600;
+            long min = cd - (3600 * day);
+            return "§3" + day + " §7小时" + " §3" + min + "§7分钟";
+        }
+    }
+
     private static boolean setSwitchCD(Player p) throws SQLException {
 
         if (!SQL.getIfExist(p, "promode")) {
@@ -90,13 +128,14 @@ public class Profession {
             statement.executeUpdate();
         }
 
-
         String sql = "SELECT lastswitch FROM promode WHERE id = ? LIMIT 1;";
         PreparedStatement statement2 = Core.getConnection().prepareStatement(sql);
         statement2.setObject(1, p.getName());
         ResultSet rs = statement2.executeQuery();
         while (rs.next()) {
+
             if (!rs.wasNull()) {
+
                 if (rs.getInt(1) > getCurrentSTime()) {
                     float lftime = (rs.getInt(1) - getCurrentSTime()) / 60;
                     p.sendMessage("§8[ §6GTM §8] §7职业模式切换冷却尚未结束，剩余冷却时间§3 " + lftime + " §7分钟");
@@ -114,39 +153,30 @@ public class Profession {
         return true;
     }
 
-    public static void switchProMode(Player p, String mode) {
-
+    public static void switchProMode(Player p, String mode) throws SQLException {
 
         if (!PermissionsEx.getUser(p).has("gtm.modeaccess." + mode)) {
             p.sendMessage("§8[ §6GTM §8] §7你尚未解锁此职业模式");
             return;
         }
 
-        try {
-            if (setSwitchCD(p)) {
-                for (String per : PROMODE_MAP.keySet()) {
-                    if (per.equals(mode)) {
+        if (setSwitchCD(p)) {
+            for (String per : PROMODE_MAP.keySet()) {
+                if (per.equals(mode)) {
 
-                        PermissionsEx.getUser(p).addPermission("gtm.mode." + mode);
-                        p.sendMessage("§8[ §6GTM §8] §7你的职业模式已切换至" + PROMODE_MAP.get(per));
-                        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "tags set " + p.getName() + " " + mode);
-                        // 切换称号
+                    PermissionsEx.getUser(p).addPermission("gtm.mode." + mode);
+                    p.sendMessage("§8[ §6GTM §8] §7你的职业模式已切换至" + PROMODE_MAP.get(per));
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "tags set " + p.getName() + " " + mode);
+                    // 切换称号
 
-                        return;
-                    } else {
-                        PermissionsEx.getUser(p).removePermission("gtm.mode." + per);
-                        return;
-                    }
-
+                    return;
+                } else {
+                    PermissionsEx.getUser(p).removePermission("gtm.mode." + per);
                 }
-                p.sendMessage("§8[ §6GTM §8] §7你指定的职业不存在");
 
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            p.sendMessage("§8[ §6GTM §8] §7你指定的职业不存在");
+
         }
-
-
     }
-
 }

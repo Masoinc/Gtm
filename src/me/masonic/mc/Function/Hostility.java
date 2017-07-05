@@ -40,9 +40,21 @@ public class Hostility implements Listener {
 
             //增加通缉
             Player k = p.getKiller();
-            if (k == null || HookBounty.getBounty(p) > 1) {
+            if (k == null) {
                 return;
             }
+            if (Profession.getProMode(k).equals("cop") && getHostility$Integer(p) > 1) {
+                k.sendMessage("§8[ §6GTM §8] §7你击杀了一位通缉星数为 " + getHostility$Formatted(p) + " §7的嫌疑犯");
+                k.sendMessage("§8[ §6GTM §8] §7已获得其赏金的 §330% §7奖励");
+
+                Core.getEconomy().depositPlayer(k, HookBounty.getBounty(p));
+                k.sendMessage("§8[ §6GTM §8] §6" + HookBounty.getBounty(p) + "§7黑币已存入你的银行账户");
+
+                return;
+
+            }
+
+
             KILL_MAP.put(k, KILL_MAP.containsKey(k) ? KILL_MAP.get(k) + 1 : 1);
             k.sendMessage("§8[ §6GTM §8] §7你目前的通缉星数: " + getHostility$Formatted(k));
 
