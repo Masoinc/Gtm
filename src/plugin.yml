@@ -2,7 +2,7 @@ name: Gtm
 
 main: me.masonic.mc.Core
 
-version: 1.3
+version: 1.4
 
 commands:
   gtmatm:
@@ -42,6 +42,8 @@ permissions:
   gtm.rank.hobo:
     description: Access to all Hobo rank permissions
     children:
+      essentials.tpaccept: true
+
       crackshot.use.glock17_a: true
       crackshot.use.usp45_a: true
       crackshot.use.glock42_a: true
@@ -98,6 +100,7 @@ permissions:
     children:
       crackshot.use.Barrett_a: true
       deluxetags.tag.hunter: true
+      gtm.modeaccess.hitman: true
   gtm.rank.dealer:
     description: Access to all Dealer rank permissions
     children:

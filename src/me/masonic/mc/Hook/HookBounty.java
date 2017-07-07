@@ -15,11 +15,21 @@ public class HookBounty {
 
     private AdvancedBounties advancedBounties = AdvancedBounties.getInstance();
     private BountyManager bountyManager = advancedBounties.bountyManager;
+    public static void removeBounty(Player p) {
+        AdvancedBounties advancedBounties = AdvancedBounties.getInstance();
+        BountyManager bountyManager = advancedBounties.bountyManager;
+        bountyManager.removeBountyInfo(p.getUniqueId());
 
+    }
     public static double getBounty(Player p) {
-        BountyInfo bountyInfo = AdvancedBounties.getInstance().bountyManager.getBountyInfo(p.getUniqueId());
-        return bountyInfo.getBountyPrice();
-
+        AdvancedBounties advancedBounties = AdvancedBounties.getInstance();
+        BountyManager bountyManager = advancedBounties.bountyManager;
+        BountyInfo bountyInfo;
+        if ((bountyInfo = bountyManager.getBountyInfo(p.getUniqueId())) == null) {
+            return 0;
+        } else {
+            return bountyInfo.getBountyPrice();
+        }
     }
 
     public void addBountyByGov(Player p) {
@@ -45,4 +55,5 @@ public class HookBounty {
             }
         }
     }
+
 }

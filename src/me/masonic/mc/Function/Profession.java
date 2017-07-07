@@ -152,7 +152,7 @@ public class Profession {
             for (String per : PROMODE_MAP.keySet()) {
                 if (per.equals(mode)) {
                     PermissionsEx.getUser(p).addPermission("gtm.mode." + mode);
-                    p.sendMessage("§8[ §6GTM §8] §7你的职业模式已切换至" + PROMODE_MAP.get(per));
+                    p.sendMessage("§8[ §6GTM §8] §7你的职业模式已切换至 " + PROMODE_MAP.get(per));
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "tags set " + p.getName() + " " + mode);
                     // 切换称号
                     return;

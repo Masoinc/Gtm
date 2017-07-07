@@ -373,6 +373,40 @@ public class GtmKit implements CommandExecutor {
                     }
                     return true;
 
+                case "hitman":
+                    name = "§7§l职业杀手";
+
+                    try {
+                        if (handleCoolDown("kithitman", p)) {
+                            return true;
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load melee1 " + pname + " 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load gtma8 " + pname + " 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load gtma5 " + pname + " 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load gps " + pname + " 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " mp5_a 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " Barrett_a 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " grenade_a 5"); //手雷
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " gastear_a 5");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " putty_a 3");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " gtmf2 8");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb6 3");//霰弹弹匣
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb4 2");//霰弹弹匣
+
+                    silentNarrateDelivered(p, name);
+                    RefreshLore.refreshWeapons(p);
+
+                    try {
+                        setCoolDown("kithitman", p, 2400);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+
+
                 case "vip":
                     name = "§6§lVIP";
 
