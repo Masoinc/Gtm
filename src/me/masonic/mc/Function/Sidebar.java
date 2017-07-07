@@ -73,7 +73,7 @@ public class Sidebar implements Listener {
 
         }
         List<String> verinfo = Arrays.asList("§4",
-                "§8‡ GTM α v1.3");
+                "§8‡ GTM" + Core.getVersion());
         for (String s : verinfo) {
             info.add(s);
         }

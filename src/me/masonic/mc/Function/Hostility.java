@@ -50,9 +50,9 @@ public class Hostility implements Listener {
 
                     Core.getEconomy().depositPlayer(k, HookBounty.getBounty(p));
                     k.sendMessage("§8[ §6GTM §8] §6" + HookBounty.getBounty(p) + "§7黑币已存入你的银行账户");
+                    HookBounty.removeBounty(p);
 
                 }
-
                 return;
             }
 
