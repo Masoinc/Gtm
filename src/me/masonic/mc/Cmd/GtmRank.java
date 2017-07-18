@@ -33,6 +33,8 @@ public class GtmRank implements CommandExecutor, Listener {
         RANK_MAP.put("smuggler", 4);
         RANK_MAP.put("hunter", 5);
         RANK_MAP.put("dealer", 6);
+        RANK_MAP.put("mafia", 7);
+        RANK_MAP.put("godfather", 8);
 
         RANK_NAME.put("hobo", "§7§l流浪者");
         RANK_NAME.put("rogue", "§2§l地头流氓");
@@ -42,6 +44,8 @@ public class GtmRank implements CommandExecutor, Listener {
         RANK_NAME.put("smuggler", "§6§l走私大亨");
         RANK_NAME.put("hunter", "§6§l赏金猎手");
         RANK_NAME.put("dealer", "§d§l绝命毒贩");
+        RANK_NAME.put("mafia", "§d§l地下龙头");
+        RANK_NAME.put("godfather", "§c§l黑道教父");
     }
 
     @EventHandler
@@ -115,7 +119,6 @@ public class GtmRank implements CommandExecutor, Listener {
                     }
                     setPrefix(p, rank);
                     addPermission(p, rank);
-                    addGunPermission(p, "rpg7_a");
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 case "hunter":
@@ -124,7 +127,6 @@ public class GtmRank implements CommandExecutor, Listener {
                     rankname = RANK_NAME.get(rank);
                     setPrefix(p, rank);
                     addPermission(p, rank);
-                    addGunPermission(p, "Barrett_a");
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 case "dealer":
@@ -133,7 +135,22 @@ public class GtmRank implements CommandExecutor, Listener {
                     rankname = RANK_NAME.get(rank);
                     setPrefix(p, rank);
                     addPermission(p, rank);
-                    addGunPermission(p, "g36_a");
+                    Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
+                    return true;
+                case "mafia":
+                    //gtm.rank.mafia
+                    rank = "mafia";
+                    rankname = RANK_NAME.get(rank);
+                    setPrefix(p, rank);
+                    addPermission(p, rank);
+                    Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
+                    return true;
+                case "godfather":
+                    //gtm.rank.godfather
+                    rank = "godfather";
+                    rankname = RANK_NAME.get(rank);
+                    setPrefix(p, rank);
+                    addPermission(p, rank);
                     Announce.announceMsg("§8[ §6GTM §8] §7" + p.getName() + "刚刚升级为 " + rankname);
                     return true;
                 default:

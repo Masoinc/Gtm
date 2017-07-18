@@ -31,12 +31,18 @@ public class Core extends JavaPlugin {
 
     public static final String Version = "§8α v1.4";
 
+    public static final String Prefix = "§8[ §6GTM §8] §7";
+
     public static String getVersion() {
         return Version;
     }
 
     public static Connection getConnection() {
         return connection;
+    }
+
+    public static String getPrefix() {
+        return Prefix;
     }
 
     private Logger logger;

@@ -14,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 
+import static me.masonic.mc.Function.Profession.getProMode$Id;
+
 //Mysql query returns a sheet, and what you need may locate at the second line, cuz the column name takes the position of first line.
 
 public class GtmKit implements CommandExecutor {
@@ -111,6 +113,11 @@ public class GtmKit implements CommandExecutor {
 
             switch (args[0].toLowerCase()) {
                 case "hobo":
+                    if (getProMode$Id(p).equals("none")) {
+                        p.sendMessage(Core.getPrefix() + "你目前处于职业模式下，不可领取此补给");
+                        return true;
+                    }
+
                     name = "§7流浪者 ";
 
                     try {
@@ -137,6 +144,10 @@ public class GtmKit implements CommandExecutor {
                     return true;
 
                 case "rogue":
+                    if (getProMode$Id(p).equals("none")) {
+                        p.sendMessage(Core.getPrefix() + "你目前处于职业模式下，不可领取此补给");
+                        return true;
+                    }
                     name = "§2地头流氓";
 
                     try {
@@ -164,6 +175,10 @@ public class GtmKit implements CommandExecutor {
                     return true;
 
                 case "criminal":
+                    if (getProMode$Id(p).equals("none")) {
+                        p.sendMessage(Core.getPrefix() + "你目前处于职业模式下，不可领取此补给");
+                        return true;
+                    }
                     name = "§2不法分子";
 
                     try {
@@ -192,6 +207,10 @@ public class GtmKit implements CommandExecutor {
                     }
                     return true;
                 case "thug":
+                    if (getProMode$Id(p).equals("none")) {
+                        p.sendMessage(Core.getPrefix() + "你目前处于职业模式下，不可领取此补给");
+                        return true;
+                    }
                     name = "§3亡命歹徒";
 
                     try {
@@ -221,6 +240,10 @@ public class GtmKit implements CommandExecutor {
                     }
                     return true;
                 case "gangster":
+                    if (getProMode$Id(p).equals("none")) {
+                        p.sendMessage(Core.getPrefix() + "你目前处于职业模式下，不可领取此补给");
+                        return true;
+                    }
                     name = "§3黑帮势力";
 
                     try {
@@ -250,6 +273,10 @@ public class GtmKit implements CommandExecutor {
                     }
                     return true;
                 case "smuggler":
+                    if (getProMode$Id(p).equals("none")) {
+                        p.sendMessage(Core.getPrefix() + "你目前处于职业模式下，不可领取此补给");
+                        return true;
+                    }
                     name = "§6走私大亨";
 
                     try {
@@ -281,6 +308,10 @@ public class GtmKit implements CommandExecutor {
                     }
                     return true;
                 case "hunter":
+                    if (getProMode$Id(p).equals("none")) {
+                        p.sendMessage(Core.getPrefix() + "你目前处于职业模式下，不可领取此补给");
+                        return true;
+                    }
                     name = "§6赏金猎手";
 
                     try {
@@ -310,6 +341,10 @@ public class GtmKit implements CommandExecutor {
                     }
                     return true;
                 case "drugdealer":
+                    if (getProMode$Id(p).equals("none")) {
+                        p.sendMessage(Core.getPrefix() + "你目前处于职业模式下，不可领取此补给");
+                        return true;
+                    }
                     name = "§6绝命毒贩";
 
                     try {
@@ -339,6 +374,10 @@ public class GtmKit implements CommandExecutor {
                     }
                     return true;
                 case "mafia":
+                    if (getProMode$Id(p).equals("none")) {
+                        p.sendMessage(Core.getPrefix() + "你目前处于职业模式下，不可领取此补给");
+                        return true;
+                    }
                     name = "§5地下龙头";
                     try {
                         if (handleCoolDown("kit9", p)) {
@@ -370,8 +409,40 @@ public class GtmKit implements CommandExecutor {
                     return true;
 
                 case "godfather":
-                    name = "§d黑道教父";
+                    if (getProMode$Id(p).equals("none")) {
+                        p.sendMessage(Core.getPrefix() + "你目前处于职业模式下，不可领取此补给");
+                        return true;
+                    }
 
+                    name = "§c黑道教父";
+                    try {
+                        if (handleCoolDown("kit10", p)) {
+                            return true;
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load gtma5 " + pname + " 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load gtma2 " + pname + " 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " gusenberg_a 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " M1911A1_a 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " grenade_a 5"); //手雷
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " morotov_a 3");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " putty_a 3");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " gtmf2 10");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb1 3");//狙击弹匣
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb5 3");//狙击弹匣
+
+                    silentNarrateDelivered(p, name);
+                    RefreshLore.refreshWeapons(p);
+
+                    try {
+                        setCoolDown("kit10", p, 2400);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
 
 
                 case "cop":
@@ -421,13 +492,12 @@ public class GtmKit implements CommandExecutor {
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load gps " + pname + " 1");
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " mp5_a 1");
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " Barrett_a 1");
-                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " grenade_a 5"); //手雷
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " grenade_a 5");
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " gastear_a 5");
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " putty_a 3");
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " gtmf2 8");
-                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb6 3");//霰弹弹匣
-                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb4 2");//霰弹弹匣
-
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb6 3");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb4 2");
                     silentNarrateDelivered(p, name);
                     RefreshLore.refreshWeapons(p);
 
