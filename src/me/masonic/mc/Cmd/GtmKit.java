@@ -339,7 +339,39 @@ public class GtmKit implements CommandExecutor {
                     }
                     return true;
                 case "mafia":
-                    name = "§6黑道龙头";
+                    name = "§5地下龙头";
+                    try {
+                        if (handleCoolDown("kit9", p)) {
+                            return true;
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load gtma3 " + pname + " 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mi load gtma2 " + pname + " 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " xm1014_a 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " M1911A1_a 1");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " grenade_a 5"); //手雷
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " morotov_a 3");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " putty_a 3");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " gtmf2 10");
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb1 3");//狙击弹匣
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb6 3");//狙击弹匣
+
+                    silentNarrateDelivered(p, name);
+                    RefreshLore.refreshWeapons(p);
+
+                    try {
+                        setCoolDown("kit9", p, 2400);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+
+                case "godfather":
+                    name = "§d黑道教父";
+
 
 
                 case "cop":
@@ -492,7 +524,6 @@ public class GtmKit implements CommandExecutor {
                                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "shot give " + pname + " putty_a 2");
                                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb3 5");
                                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "mm i give " + pname + " mxb4 3");
-
 
 
                                 silentNarrateDelivered(p, name);

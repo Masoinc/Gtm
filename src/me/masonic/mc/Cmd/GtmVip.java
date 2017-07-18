@@ -77,10 +77,6 @@ public class GtmVip implements CommandExecutor {
         } else {
             Player p = (Player) commandSender;
 
-            if (!(p.isOp())) {
-                return true;
-            }
-
             switch (args.length) {
                 case 0:
                     return true;

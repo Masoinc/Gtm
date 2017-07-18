@@ -29,8 +29,6 @@ public class Core extends JavaPlugin {
 
     private static Connection connection = null;
 
-
-
     public static final String Version = "§8α v1.4";
 
     public static String getVersion() {
